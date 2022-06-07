@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: pos-carts
+server:
+  port: 8082
+
+hibernate:
+  dialect: org.hibernate.dialect.H2Dialect
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: false
+    fetchRegistry: false
+  instance:
+    hostname: pos-carts
+    instance-id: ${spring.application.name}:${random.uuid}
