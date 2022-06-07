@@ -1,8 +1,8 @@
 spring:
   application:
-    name: pos-carts
+    name: pos-delivery
 server:
-  port: 8082
+  port: 8085
 
 hibernate:
   dialect: org.hibernate.dialect.H2Dialect
@@ -13,5 +13,6 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
   instance:
-    hostname: pos-carts
+    hostname: ${spring.application.name}
     instance-id: ${spring.application.name}:${random.uuid}
+    prefer-ip-address: true
