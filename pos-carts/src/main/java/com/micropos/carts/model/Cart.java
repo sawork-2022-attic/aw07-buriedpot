@@ -3,7 +3,12 @@ package com.micropos.carts.model;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,37 +17,50 @@ import java.util.Iterator;
 import java.util.List;
 
 
-@Entity
-@Table(name = "Carts")
+@Data
+@Document(collection = "Carts")
 @Accessors(fluent = true, chain = true)
 public class Cart implements Serializable {
-
-
+    /**
+     * same as accountId
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String cartId;
 
-    private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "Items", joinColumns = @JoinColumn(name = "cart_id"))
     private List<Item> items = new ArrayList<>();
 
     /*public boolean addItem(Item item) {
         return items.add(item);
     }
 */
+
+    public String getCartId() {
+        return cartId;
+    }
+
     public double getTotal() {
         double total = 0;
         for (int i = 0; i < items.size(); i++) {
             total += items.get(i).quantity() * items.get(i).productPrice();
         }
-        this.
         return total;
     }
 
-    /*public List<Item> getItems() {
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
+
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public List<Item> getItems() {
         return items;
-    }*/
+    }
 
     public boolean addItem(Item item) {
 
@@ -96,6 +114,25 @@ public class Cart implements Serializable {
         return false;
     }
 
+    public boolean modifyItem(Item newItem) {
+        Iterator<Item> it = items.iterator();
+        String productId = newItem.productId();
+        int amount = newItem.quantity();
+        while (it.hasNext()) {
+            Item item = it.next();
+            if (newItem.productId().equals(productId)) {
+                if (amount > 0) {
+                    newItem.quantity(amount);
+                }
+                else {
+                    it.remove();
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean empty() {
         items = new ArrayList<>();
         return true;
@@ -122,3 +159,4 @@ public class Cart implements Serializable {
         return stringBuilder.toString();
     }
 }
+

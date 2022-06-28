@@ -1,56 +1,69 @@
 package com.micropos.carts.model;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-
-@Entity
-@Table(name="Items")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(fluent = true, chain = true)
 public class Item implements Serializable {
-    /**
-     * product's feature, no altenative so put here
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
-    private Integer id;
-
-    @Column(name="cart_id")
-    @Getter
-    @Setter
-    private Integer cartId;
-
-
-    @Getter
-    @Setter
-    @Column(name="product_id")
+    @JsonProperty(value = "itemId")
+    private String itemId;
+    @JsonProperty(value = "productId")
     private String productId;
 
-    @Getter
-    @Setter
-    @Column(name="product_name")
+    @JsonProperty(value = "productName")
     private String productName;
-
-    @Getter
-    @Setter
-    @Column(name="product_price")
+    @JsonProperty(value = "productPrice")
     private double productPrice;
-
-/*
-    @Getter
-    @Setter
-    @Column(name="item_image")
-    private String image;
-*/
-
-    @Getter
-    @Setter
-    @Column(name="quantity")
+    @JsonProperty(value = "quantity")
     private int quantity;
 
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

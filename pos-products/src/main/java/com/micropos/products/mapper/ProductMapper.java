@@ -1,6 +1,7 @@
 package com.micropos.products.mapper;
 
-import com.micropos.dto.ProductDto;
+
+import com.micropos.api.dto.ProductDto;
 import com.micropos.products.model.Product;
 import org.mapstruct.Mapper;
 

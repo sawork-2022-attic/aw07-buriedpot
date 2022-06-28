@@ -1,18 +1,26 @@
 spring:
   application:
-    name: pos-delivery
-server:
-  port: 8085
+    name: posdelivery
+  rabbitmq:
+    host: localhost # rabbitmq docker ip
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: delivery
+          contentType: application/json
 
-hibernate:
-  dialect: org.hibernate.dialect.H2Dialect
+server:
+  port: 8086
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-    registerWithEureka: false
-    fetchRegistry: false
   instance:
-    hostname: ${spring.application.name}
     instance-id: ${spring.application.name}:${random.uuid}
+    hostname: ${spring.application.name}
     prefer-ip-address: true

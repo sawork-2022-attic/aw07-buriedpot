@@ -1,17 +1,23 @@
 spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: admin
+      username: admin
+      password: admin
   application:
-    name: pos-carts
+    name: poscarts
 server:
   port: 8082
 
-hibernate:
-  dialect: org.hibernate.dialect.H2Dialect
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-    registerWithEureka: false
-    fetchRegistry: false
+
   instance:
-    hostname: pos-carts
     instance-id: ${spring.application.name}:${random.uuid}
+    hostname: ${spring.application.name}
+    prefer-ip-address: true

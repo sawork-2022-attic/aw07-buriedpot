@@ -1,8 +1,6 @@
 package com.micropos.api.service;
 
 
-import com.micropos.api.model.Cart;
-import com.micropos.api.model.Product;
 
 import java.util.List;
 

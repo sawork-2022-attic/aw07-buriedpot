@@ -65,6 +65,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.micropos</groupId>
+            <artifactId>pos-api</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,29 +1,92 @@
 package com.micropos.carts.service;
 
+import com.micropos.api.dto.CartDto;
 import com.micropos.carts.model.Cart;
 import com.micropos.carts.model.Item;
+import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CartService {
-    Cart newCart();
 
-    Double checkout(Cart cart);
+    /**
+     * create an empty cart
+     * @return
+     */
+    @Deprecated
+    Mono<Cart> newCart();
 
-    Double checkout(Integer cartId);
+    /**
+     * create an empty cart
+     * @return
+     */
+    @Deprecated
+    Mono<Cart> newCart(String accountId);
 
-    Cart add(Cart cart, Item item);
+    /*Double checkout(Cart cart);
+*/
 
-    List<Cart> getAllCarts();
+    /**
+     * checkout. calculate the money and delete it from repo.
+     * @param cartId
+     * @return
+     */
+    Mono<Double> checkout(String cartId);
 
-    Cart addCart(Cart cart);
 
-    Optional<Cart> getCart(Integer cartId);
+    /**
+     * add an item into cart
+     * @param cartId
+     * @param item
+     * @return
+     */
+    Mono<Cart> add(String cartId, Item item);
 
-    Integer test();
+    //Cart modify(Cart cart, Item item);
+
+    /**
+     * accountId map to only one accountId. So can checkout by accountId
+     * @param
+     * @return
+     */
+    //Mono<Double> checkoutByAccoundId(String accountId);
+
+
+    /**
+     * get all carts
+     * @return
+     */
+    Flux<Cart> getAllCarts();
+
+/*    Cart addCart(Cart cart);*/
+
+    /**
+     * get Cart by cartId. may be optimized: use accountId as cartId
+     * @param cartId
+     * @return
+     */
+    Mono<Cart> getCart(String cartId);
+
+    /**
+     * get Cart by accountId. may be optimized
+     * @param
+     * @return
+     */
+    //Mono<Cart> getCartByAccountId(String accountId);
+
+    /**
+     * get CartId by accountId.
+     * @param
+     * @return
+     */
+    //Mono<String> getCartIdByAccountId(String accountId);
+
+   /* Integer test();
 
     Cart delete(Cart cart, String productId); // delete an item in the cart by productId
 
-    Cart empty(Cart cart);//
+    Cart empty(Cart cart);//*/
 }

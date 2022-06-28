@@ -9,19 +9,27 @@ spring:
         - id: products
           uri: http://localhost:8081/
           predicates:
-            - Path=/api/products/**
+            - Path=/products/**
         - id: carts
           uri: http://localhost:8082/
           predicates:
-            - Path=/api/carts/**
+            - Path=/carts/**
         - id: counter
           uri: http://localhost:8083/
           predicates:
-            - Path=/api/counter/**
+            - Path=/counter/**
         - id: api
           uri: http://localhost:8084/
           predicates:
-            - Path=/api/api/**
+            - Path=/api/**
+        - id: orders
+          uri: http://localhost:8085/
+          predicates:
+            - Path=/orders/**
+        - id: delivery
+          uri: http://localhost:8086/
+          predicates:
+            - Path=/delivery/**
 
 eureka:
   client:
